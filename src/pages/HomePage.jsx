@@ -1,15 +1,24 @@
-
-import { Link } from "react-router-dom";
+import { getTrendingMovies } from "../api";
+import MovieList from "../components/MovieList/MovieList";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await getTrendingMovies();
+      const data = await response.json();
+      setMovies(data.results);
+    };
+
+    fetchMovies();
+  }, []);
+
   return (
-    <div className="container mx-auto my-10">
-      <h1 className="text-3xl font-bold text-blue-600">Popular Movies</h1>
-      <ul>
-        <li><Link to="/movies/1">Movie 1</Link></li>
-        <li><Link to="/movies/2">Movie 2</Link></li>
-        <li><Link to="/movies/3">Movie 3</Link></li>
-      </ul>
+    <div>
+      <h1>Trending today</h1>
+      <MovieList movies={movies}></MovieList>
     </div>
   );
 };
