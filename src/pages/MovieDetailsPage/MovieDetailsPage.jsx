@@ -1,4 +1,10 @@
-import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovie } from "../../api";
 import styles from "./MovieDetailsPage.module.css";
@@ -14,7 +20,10 @@ const calculateUserScore = (voteAverage) => {
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from || "/movies";
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -33,7 +42,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
+      <button className={styles.backButton} onClick={() => navigate(from)}>
         &larr; Go back
       </button>
 
@@ -69,10 +78,14 @@ const MovieDetailsPage = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <Link to="cast">Cast</Link>
+          <Link to="cast" state={{ from }}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <Link to="reviews" state={{ from }}>
+            Reviews
+          </Link>
         </li>
       </ul>
 

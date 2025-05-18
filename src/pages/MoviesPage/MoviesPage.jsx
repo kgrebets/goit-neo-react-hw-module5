@@ -65,11 +65,15 @@ const MoviesPage = () => {
       {movies && movies.length > 0 && <MovieList movies={movies} />}
 
       <div className={styles.pagination}>
-        {page > 1 && (
-          <button onClick={() => handlePageChange(page - 1)}>Prev</button>
+        {page > 1 && !loading && (
+          <button onClick={() => handlePageChange(page - 1)}>
+            &larr; Prev
+          </button>
         )}
-        {movies && movies.length === 20 && (
-          <button onClick={() => handlePageChange(page + 1)}>Next</button>
+        {movies && movies.length === 20 && !loading && (
+          <button onClick={() => handlePageChange(page + 1)}>
+            Next &rarr;
+          </button>
         )}
       </div>
     </div>
