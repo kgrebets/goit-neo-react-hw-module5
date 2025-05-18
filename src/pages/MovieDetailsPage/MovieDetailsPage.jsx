@@ -77,10 +77,14 @@ const MovieDetailsPage = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <NavLink to="cast" state={fromRef.current}>
+            Cast
+          </NavLink>
         </li>
         <li>
-          <NavLink to="reviews">Reviews</NavLink>
+          <NavLink to="reviews" state={fromRef.current}>
+            Reviews
+          </NavLink>
         </li>
       </ul>
 
