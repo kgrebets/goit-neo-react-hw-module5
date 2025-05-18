@@ -1,5 +1,3 @@
-//import styles from "./MovieList.module.css";
-
 import { Link } from "react-router-dom";
 
 const MovieList = ({ movies }) => {
