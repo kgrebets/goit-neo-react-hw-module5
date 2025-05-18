@@ -1,11 +1,11 @@
 import {
-  Link,
   Outlet,
   useParams,
-  useNavigate,
   useLocation,
+  NavLink,
+  Link,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMovie } from "../../api";
 import styles from "./MovieDetailsPage.module.css";
 
@@ -22,8 +22,7 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
 
   const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from || "/movies";
+  const fromRef = useRef(location.state || "/movies");
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -42,9 +41,9 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(from)}>
+      <Link to={fromRef.current} className={styles.backButton}>
         &larr; Go back
-      </button>
+      </Link>
 
       <div className={styles.movieInfo}>
         <img
@@ -78,14 +77,10 @@ const MovieDetailsPage = () => {
       <h2>Additional information</h2>
       <ul>
         <li>
-          <Link to="cast" state={{ from }}>
-            Cast
-          </Link>
+          <NavLink to="cast">Cast</NavLink>
         </li>
         <li>
-          <Link to="reviews" state={{ from }}>
-            Reviews
-          </Link>
+          <NavLink to="reviews">Reviews</NavLink>
         </li>
       </ul>
 
